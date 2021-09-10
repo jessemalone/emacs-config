@@ -23,14 +23,16 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(counsel-mode t)
- '(custom-enabled-themes '(wheatgrass))
+ '(custom-enabled-themes (quote (wheatgrass)))
  '(evil-collection-setup-minibuffer t)
  '(evil-mode t)
  '(evil-want-keybinding nil)
  '(global-evil-collection-unimpaired-mode t)
  '(helm-minibuffer-history-key "M-p")
  '(package-selected-packages
-   '(ivy evil-collection evil js2-mode tide company-ctags counsel-etags company helm)))
+   (quote
+    (dockerfile-mode yaml-mode ivy evil-collection evil js2-mode tide company-ctags counsel-etags company helm)))
+ '(tool-bar-mode nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -52,6 +54,8 @@
  'company
  'company-ctags
  'tide
+ 'yaml-mode
+ 'dockerfile-mode
  )
 
 ;; Helm
@@ -107,6 +111,18 @@
 (set-face-attribute 'comint-highlight-prompt nil
                     :inherit nil)
 
+;; YAML
+(add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
+(add-to-list 'auto-mode-alist '("\\.yaml\\'" . yaml-mode))
+
+;; Dockerfile
+(add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode))
+(setq dockerfile-mode-command "docker")
+
+(add-hook 'yaml-mode-hook
+'(lambda ()
+    (define-key yaml-mode-map "\C-m" 'newline-and-indent)))
+
 ;;(define-key minibuffer-local-map (kbd "s-j") 'next-history-element)
 ;;(define-key minibuffer-local-map (kbd "s-k") 'previous-history-element)
 
@@ -140,4 +156,7 @@
 
 (setq-default indent-tabs-mode nil)
 (infer-indentation-style)
+
+;; Misc options
+(global-display-line-numbers-mode 1)
 
