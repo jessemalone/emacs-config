@@ -128,6 +128,7 @@
 
 ;; Easy Terminal
 (global-set-key (kbd "C-c '") '(lambda () (interactive) (ansi-term "/bin/bash")))
+(setq term-suppress-hard-newline t)
 
 ;; Bell
 (setq visible-bell t)
