@@ -23,15 +23,14 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(counsel-mode t)
- '(custom-enabled-themes (quote (wheatgrass)))
+ '(custom-enabled-themes '(wheatgrass))
  '(evil-collection-setup-minibuffer t)
  '(evil-mode t)
  '(evil-want-keybinding nil)
  '(global-evil-collection-unimpaired-mode t)
  '(helm-minibuffer-history-key "M-p")
  '(package-selected-packages
-   (quote
-    (dockerfile-mode yaml-mode ivy evil-collection evil js2-mode tide company-ctags counsel-etags company helm)))
+   '(lsp-haskell haskell-mode lsp-python-ms lsp-mode dockerfile-mode yaml-mode ivy evil-collection evil js2-mode tide company-ctags counsel-etags company helm))
  '(tool-bar-mode nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -56,6 +55,10 @@
  'tide
  'yaml-mode
  'dockerfile-mode
+ 'haskell-mode
+ 'lsp-mode
+ 'lsp-python-ms
+ 'lsp-haskell
  )
 
 ;; Helm
@@ -161,3 +164,24 @@
 ;; Misc options
 (global-display-line-numbers-mode 1)
 
+
+;; LSP Modes
+;; =================================
+
+;; Python LSP
+(use-package lsp-python-ms
+  :ensure t
+  :init (setq lsp-python-ms-auto-install-server t)
+  :hook (python-mode . (lambda ()
+                          (require 'lsp-python-ms)
+                          (lsp-deferred))))  ; or lsp-deferred
+
+;; Javascript/Typescript
+(add-hook 'typescript-mode-hook #'lsp-deferred)
+(add-hook 'javascript-mode-hook #'lsp-deferred)
+(add-hook 'js-mode-hook #'lsp-deferred)
+(add-hook 'js2-mode-hook #'lsp-deferred)
+
+;; Haskell
+(add-hook 'haskell-mode-hook #'lsp-deferred)
+(add-hook 'haskell-literate-mode-hook #'lsp-deferred)
