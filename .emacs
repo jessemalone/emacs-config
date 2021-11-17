@@ -30,7 +30,7 @@
  '(global-evil-collection-unimpaired-mode t)
  '(helm-minibuffer-history-key "M-p")
  '(package-selected-packages
-   '(which-key lsp-haskell haskell-mode lsp-python-ms lsp-mode dcompany-terrafor mockerfile-mode yaml-mode ivy evil-collection evil js2-mode tide company-ctags counsel-etags company helm))
+   '(which-key lsp-haskell haskell-mode lsp-python-ms lsp-mode company-terraform dockerfile-mode yaml-mode ivy evil-collection evil js2-mode tide company-ctags counsel-etags company helm))
  '(tool-bar-mode nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -172,6 +172,11 @@
   (which-key-mode)
   (setq which-key-idle-delay 1))
 
+;; line numbers in all programming modes
+(add-hook 'prog-mode-hook 'display-line-numbers-mode)
+
+;; Winner mode
+(winner-mode 1)
 
 ;; LSP Modes
 ;; =================================
@@ -194,8 +199,4 @@
 (add-hook 'haskell-mode-hook #'lsp-deferred)
 (add-hook 'haskell-literate-mode-hook #'lsp-deferred)
 
-;; line numbers in all programming modes
-(add-hook 'prog-mode-hook 'display-line-numbers-mode)
 
-;; Winner mode
-(winner-mode 1)
