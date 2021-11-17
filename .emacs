@@ -31,7 +31,7 @@
  '(helm-minibuffer-history-key "M-p")
  '(package-selected-packages
    (quote
-    (dockerfile-mode yaml-mode ivy evil-collection evil js2-mode tide company-ctags counsel-etags company helm)))
+    (company-terraform dockerfile-mode yaml-mode ivy evil-collection evil js2-mode tide company-ctags counsel-etags company helm)))
  '(tool-bar-mode nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -53,6 +53,7 @@
  'ivy
  'company
  'company-ctags
+ 'company-terraform
  'tide
  'yaml-mode
  'dockerfile-mode
@@ -159,5 +160,9 @@
 (infer-indentation-style)
 
 ;; Misc options
-(global-display-line-numbers-mode 1)
 
+;; line numbers in all programming modes
+(add-hook 'prog-mode-hook 'display-line-numbers-mode)
+
+;; Winner mode
+(winner-mode 1)
