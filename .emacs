@@ -30,7 +30,7 @@
  '(global-evil-collection-unimpaired-mode t)
  '(helm-minibuffer-history-key "M-p")
  '(package-selected-packages
-   '(lsp-haskell haskell-mode lsp-python-ms lsp-mode dockerfile-mode yaml-mode ivy evil-collection evil js2-mode tide company-ctags counsel-etags company helm))
+   '(which-key lsp-haskell haskell-mode lsp-python-ms lsp-mode dockerfile-mode yaml-mode ivy evil-collection evil js2-mode tide company-ctags counsel-etags company helm))
  '(tool-bar-mode nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -47,6 +47,7 @@
  'use-package
  'js2-mode
  'helm
+ 'which-key
  'evil
  'evil-collection
  'ivy
@@ -163,6 +164,13 @@
 
 ;; Misc options
 (global-display-line-numbers-mode 1)
+
+(use-package which-key
+  :defer 0
+  :diminish which-key-mode
+  :config
+  (which-key-mode)
+  (setq which-key-idle-delay 1))
 
 
 ;; LSP Modes
