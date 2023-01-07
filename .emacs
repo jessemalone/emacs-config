@@ -14,7 +14,7 @@
  
 (add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/"))
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
-(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/"))
+;;(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/"))
 (package-initialize)
 
 (custom-set-variables
@@ -23,16 +23,16 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(counsel-mode t)
- '(custom-enabled-themes (quote (wheatgrass)))
+ '(custom-enabled-themes '(wombat))
  '(evil-collection-setup-minibuffer t)
  '(evil-mode t)
  '(evil-want-keybinding nil)
  '(global-evil-collection-unimpaired-mode t)
  '(helm-minibuffer-history-key "M-p")
  '(package-selected-packages
-   (quote
-    (company-terraform dockerfile-mode yaml-mode ivy evil-collection evil js2-mode tide company-ctags counsel-etags company helm)))
- '(tool-bar-mode nil))
+   '(edit-indirect lsp-pyright use-package yasnippet go-mode which-key lsp-haskell haskell-mode lsp-python-ms lsp-mode company-terraform dockerfile-mode yaml-mode ivy evil-collection evil js2-mode tide company-ctags counsel-etags company helm))
+ '(tool-bar-mode nil)
+ '(xterm-mouse-mode t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -48,6 +48,7 @@
  'use-package
  'js2-mode
  'helm
+ 'which-key
  'evil
  'evil-collection
  'ivy
@@ -57,6 +58,12 @@
  'tide
  'yaml-mode
  'dockerfile-mode
+ 'haskell-mode
+ 'lsp-mode
+ 'lsp-pyright
+ 'lsp-haskell
+ 'go-mode
+ 'yasnippet
  )
 
 ;; Helm
@@ -161,8 +168,47 @@
 
 ;; Misc options
 
+(use-package which-key
+  :defer 0
+  :diminish which-key-mode
+  :config
+  (which-key-mode)
+  (setq which-key-idle-delay 1))
+
 ;; line numbers in all programming modes
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
 
 ;; Winner mode
 (winner-mode 1)
+
+;; LSP Modes
+;; =================================
+
+;; Python LSP
+(use-package lsp-pyright
+  :ensure t
+  :hook (python-mode . (lambda ()
+                          (require 'lsp-pyright)
+                          (lsp-deferred))))  ; or lsp-deferred
+
+;; Javascript/Typescript
+(add-hook 'typescript-mode-hook #'lsp-deferred)
+(add-hook 'javascript-mode-hook #'lsp-deferred)
+(add-hook 'js-mode-hook #'lsp-deferred)
+(add-hook 'js2-mode-hook #'lsp-deferred)
+
+;; Haskell
+(add-hook 'haskell-mode-hook #'lsp-deferred)
+(add-hook 'haskell-literate-mode-hook #'lsp-deferred)
+
+;; Gopls
+(add-hook 'go-mode-hook #'lsp-deferred)
+
+;; Set up before-save hooks to format buffer and add/delete imports.
+;; Make sure you don't have other gofmt/goimports hooks enabled.
+(defun lsp-go-install-save-hooks ()
+  (add-hook 'before-save-hook #'lsp-format-buffer t t)
+  (add-hook 'before-save-hook #'lsp-organize-imports t t))
+(add-hook 'go-mode-hook #'lsp-go-install-save-hooks)
+
+
