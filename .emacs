@@ -251,12 +251,12 @@
 (add-hook 'objc-mode-hook 'cxx-hook)
 (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
 
-;; Gecko project type for Projectile
-(projectile-register-project-type 'gecko
-                                  '("mach" "moz.build")
-                                  "python mach --log-no-times build"
-                                  "python mach mochitest"
-                                  "python mach run")
+;; Gecko project type for Projectile - Uncomment for work on the firefox codebase
+;;(projectile-register-project-type 'gecko
+;;                                  '("mach" "moz.build")
+;;                                  "python mach --log-no-times build"
+;;                                  "python mach mochitest"
+;;                                  "python mach run")
 
 ;; Set up before-save hooks to format buffer and add/delete imports.
 ;; Make sure you don't have other gofmt/goimports hooks enabled.
