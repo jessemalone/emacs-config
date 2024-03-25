@@ -112,6 +112,15 @@
     `(company-tooltip-selection ((t (:inherit font-lock-function-name-face))))
     `(company-tooltip-common ((t (:inherit font-lock-constant-face))))))
 
+;; Company always on
+(add-hook 'after-init-hook 'global-company-mode)
+
+;; aligns annotation to the right hand side
+(setq company-tooltip-align-annotations t)
+(with-eval-after-load 'company
+  (define-key company-mode-map (kbd "C-<tab>") 'company-complete))
+(add-to-list 'company-backends '(company-files))
+
 ;; Tide
 (defun setup-tide-mode ()
   (interactive)
@@ -125,8 +134,6 @@
   ;; `M-x package-install [ret] company`
   (company-mode +1))
 
-;; aligns annotation to the right hand side
-(setq company-tooltip-align-annotations t)
 
 (add-hook 'typescript-mode-hook #'setup-tide-mode)
 (add-hook 'javascript-mode-hook #'setup-tide-mode)
@@ -242,6 +249,7 @@
 ;; C/C++ Irony Mode
 (defun cxx-hook ()
   'irony-mode
+
   (setq-local company-backends
               '((company-capf :with company-yasnippet))))
 
