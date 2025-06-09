@@ -30,7 +30,11 @@
  '(global-evil-collection-unimpaired-mode t)
  '(helm-minibuffer-history-key "M-p")
  '(package-selected-packages
-   '(irony vterm lsp-clanmgd edit-indirect lsp-pyright use-package yasnippet go-mode which-key haskell-mode lsp-mode company-terraform dockerfile-mode yaml-mode ivy evil-collection evil js2-mode tide company-ctags counsel-etags company helm))
+   '(company company-ctags company-terraform counsel-etags
+             dockerfile-mode edit-indirect evil evil-collection go-dlv
+             go-mode haskell-mode helm irony ivy js2-mode lsp-clanmgd
+             lsp-mode lsp-pyright mermaid-mode org-tempo tide
+             use-package vterm which-key yaml-mode yasnippet))
  '(tool-bar-mode nil)
  '(xterm-mouse-mode t))
 (custom-set-faces
@@ -38,10 +42,12 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(company-scrollbar-bg ((t (:background "#27c127c127c1"))))
- '(company-scrollbar-fg ((t (:background "#25f225f225f2"))))
+ '(company-scrollbar-bg ((t (:background "#27c127c127c1"))) t)
+ '(company-scrollbar-fg ((t (:background "#25f225f225f2"))) t)
  '(company-tooltip ((t (:inherit default :background "#24dd24dd24dd"))))
  '(company-tooltip-common ((t (:inherit font-lock-constant-face))))
+ '(company-tooltip-scrollbar-thumb ((t (:background "#25f225f225f2"))))
+ '(company-tooltip-scrollbar-track ((t (:background "#27c127c127c1"))))
  '(company-tooltip-selection ((t (:inherit font-lock-function-name-face)))))
 
 (setq while-no-input-ignore-events 'nil)
@@ -55,6 +61,7 @@
  'which-key
  'evil
  'evil-collection
+ 'evil-surround
  'ivy
  'company
  'company-irony
@@ -73,6 +80,8 @@
  'projectile
  'rtags
  'anaconda-mode
+ 'go-dlv
+ 'mermaid-mode
  )
 
 ;; Helm
@@ -85,6 +94,8 @@
 (setq evil-want-integration t)
 (setq evil-want-keybinding nil)
 (evil-mode 1)
+(global-evil-surround-mode 1)
+(setq evil-collection-key-blacklist (append (bound-and-true-p evil-collection-key-blacklist)))
 (evil-collection-init)
 
 ;; Completion
