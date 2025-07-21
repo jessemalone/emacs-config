@@ -33,7 +33,7 @@
    '(company company-ctags company-terraform counsel-etags
              dockerfile-mode edit-indirect evil evil-collection go-dlv
              go-mode haskell-mode helm irony ivy js2-mode lsp-clanmgd
-             lsp-mode lsp-pyright mermaid-mode org-tempo tide
+             lsp-mode lsp-pyright magit mermaid-mode org-tempo tide
              use-package vterm which-key yaml-mode yasnippet))
  '(tool-bar-mode nil)
  '(xterm-mouse-mode t))
@@ -82,6 +82,7 @@
  'anaconda-mode
  'go-dlv
  'mermaid-mode
+ 'magit
  )
 
 ;; Helm
@@ -283,5 +284,4 @@
   (add-hook 'before-save-hook #'lsp-format-buffer t t)
   (add-hook 'before-save-hook #'lsp-organize-imports t t))
 (add-hook 'go-mode-hook #'lsp-go-install-save-hooks)
-
 
